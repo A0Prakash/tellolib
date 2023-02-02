@@ -14,19 +14,27 @@ takeoff() sends a command to the tello to take off
 land() sends a command to the tello to land
 
 movement commands
+
 forward(num)
+
 backward(num)
+
 left(num)
+
 right(num)
 
 User can rotate clockwise or counterclockwise
+
 rotatecw(degree)
+
 rotateccw(degree)
 
 sendcommand(str) sends command str to tello
+
 receive() receives a message if the tello sends one
 
 To install:
+
 pip install tellolib
 
 link to PyPI: https://pypi.org/project/tellolib/
