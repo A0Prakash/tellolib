@@ -1,0 +1,8 @@
+README.md
+setup.py
+telloflightlibrary/__init__.py
+telloflightlibrary/tellofuncs.py
+tellolib.egg-info/PKG-INFO
+tellolib.egg-info/SOURCES.txt
+tellolib.egg-info/dependency_links.txt
+tellolib.egg-info/top_level.txt
