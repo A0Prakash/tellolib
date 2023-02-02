@@ -3,7 +3,9 @@ Author: Aarav Prakash
 
 Example code:
 
-tello = tellolib.Tello(1111)
+from tellolib import tello
+
+tello = tello.Tello(1111)
 tello.takeoff()
 
 In this instance, 1111 is the UDP port that the computer sets the server to communicate with the tello to be.
