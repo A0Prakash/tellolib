@@ -1,90 +1,85 @@
 import socket
-import time
+
+tello_address = ("192.168.10.1", 8889)
 
 class Tello:
-    def __init__(self, port) :
-        self.ip = "127.0.0.1"
-        self.port = port
-        self.addr = (self.ip, self.port)
-        self.telloport = 8889
-        self.telloip = "192.168.10.1"
-        self.telloaddr = (self.telloip, self.telloport)
+    def __init__(self, port):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-    def recieve(self):
-        print('receiving message from tello')
-        bytes, address = self.sock.recvfrom(1024)
-        bytes = bytes.decode('utf-8')
-        if(address == self.telloaddr):
-            print('received message from tello: ' + bytes)
-        else:
-            print('received message from ' + address + '(not tello): ' + bytes)
-        
-
+        self.address = ("", port)
     def sendcommand(self, command):
         try:
-            print('sending command' + command + ' to tello')
             command = command.encode()
-            self.sock.sendto(command, self.telloaddr)
-            print('command sent')
+            sent = self.sock.sendto(command, tello_address)
         except socket.error as msg:
             print("Error sending message: " + str(msg))
+            print(str(sent))
 
+    def recieve(self):
+        bytes, address = self.sock.recvfrom(1024)
+        bytes = bytes.decode('utf-8')
+        if address == tello_address:
+            print("Recieved message from tello: " + bytes)
+        else:
+            print("Message from: " + str(address) + bytes)
     def connect(self):
         try:
-            print('connecting...')
-            self.sock.bind(self.addr)
+            self.sock.bind(self.address)
             self.sendcommand('command')
-            print('connected to tello')
         except socket.error as msg:
-            print("error sending message " + str(msg))
-            print(msg[0])
-            print(msg[1])
+            print("Failed to bind: " + str(msg))
     def takeoff(self):
         try:
-            self.sendcommand('takeoff')
+            self.sendcommand("takeoff")
         except socket.error as msg:
-            print("error sending message " + str(msg))
+            print("Error sending message: " + str(msg))
     def land(self):
         try:
-            self.sendcommand('land')
+            self.sendcommand("land")
         except socket.error as msg:
-            print("error sending message " + str(msg))
+            print("Error sending message: " + str(msg))
     def forward(self, num):
         try:
-            self.sendcommand('forward ' + str(num))
+            self.sendcommand("forward " + num)
         except socket.error as msg:
-            print("error sending message " + str(msg))
+            print("Error sending message: " + str(msg))
     def backward(self, num):
         try:
-            self.sendcommand('back ' + str(num))
+            self.sendcommand("back " + num)
         except socket.error as msg:
-            print("error sending message " + str(msg))
-    def right(self, num):
-        try:
-            self.sendcommand('right ' + str(num))
-        except socket.error as msg:
-            print("error sending message " + str(msg))
+            print("Error sending message: " + str(msg))
     def left(self, num):
         try:
-            self.sendcommand('left ' + str(num))
+            self.sendcommand("left " + num)
         except socket.error as msg:
-            print("error sending message " + str(msg))
-    def rotatecw(self, degree):
+            print("Error sending message: " + str(msg))
+    def right(self, num):
         try:
-            self.sendcommand('cw'  + str(degree))
+            self.sendcommand("right " + num)
         except socket.error as msg:
-            print("error sending message " + str(msg))
-    def rotateccw(self, degree):
+            print("Error sending message: " + str(msg))
+    def rotatecw(self, num):
         try:
-            self.sendcommand('ccw'  + str(degree))
+            self.sendcommand("cw " + num)
         except socket.error as msg:
-            print("error sending message " + str(msg))
-
-    
-    
-        
-        
-
-
-
+            print("Error sending message: " + str(msg))
+    def rotateccw(self, num):
+        try:
+            self.sendcommand("ccw " + num)
+        except socket.error as msg:
+            print("Error sending message: " + str(msg))
+    def up(self, num):
+        try:
+            self.sendcommand("up " + num)
+        except socket.error as msg:
+            print("Error sending message: " + str(msg))
+    def down(self, num):
+        try:
+            self.sendcommand("down " + num)
+        except socket.error as msg:
+            print("Error sending message: " + str(msg))
+    def stop(self):
+        try:
+            self.sendcommand("stop")
+        except socket.error as msg:
+            print("Error sending message: " + str(msg))
+	
